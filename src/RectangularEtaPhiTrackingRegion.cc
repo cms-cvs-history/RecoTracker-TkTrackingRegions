@@ -36,6 +36,7 @@ template <class T> T sqr( T t) {return t*t;}
 
 using namespace PixelRecoUtilities;
 using namespace std;
+using namespace ctfseeding; 
 
 void RectangularEtaPhiTrackingRegion::
     initEtaRange( const GlobalVector & dir, const Margin& margin)
@@ -270,10 +271,10 @@ HitRZConstraint
                               pRight, sinh(theEtaRange.max()) );
 }
 
-std::vector<ctfseeding::SeedingHit> RectangularEtaPhiTrackingRegion::hits(
+std::vector< SeedingHit> RectangularEtaPhiTrackingRegion::hits(
       const edm::Event& ev,
       const edm::EventSetup& es,
-      const ctfseeding::SeedingLayer* layer) const
+      const  SeedingLayer* layer) const
 {
 
   edm::ESHandle<MagneticField> field;
@@ -282,7 +283,7 @@ std::vector<ctfseeding::SeedingHit> RectangularEtaPhiTrackingRegion::hits(
 
 
   //ESTIMATOR
-  std::vector<ctfseeding::SeedingHit> result;
+  std::vector< SeedingHit> result;
   const DetLayer * detLayer = layer->detLayer();
   OuterEstimator * est = 0;
   if (detLayer->location() == GeomDetEnumerators::barrel) {
@@ -326,17 +327,17 @@ std::vector<ctfseeding::SeedingHit> RectangularEtaPhiTrackingRegion::hits(
   for (IM im = meas.begin(); im != meas.end(); im++) {
     TrajectoryMeasurement::ConstRecHitPointer ptrHit = im->recHit();
     if (ptrHit->isValid()) { 
-;//      result.push_back( ctfseeding::SeedingHit( ptrHit->hit(),es));
+;//      result.push_back(  SeedingHit( ptrHit->hit(),es));
     }
   }
 
 //
   // temporary fix
-  typedef  std::vector<ctfseeding::SeedingHit> Hits;
+  typedef  std::vector< SeedingHit> Hits;
   Hits layerHits = layer->hits(ev,es);
   for (Hits::const_iterator ih= layerHits.begin(); ih != layerHits.end(); ih++) {
     const TrackingRecHit * hit = (*ih).RecHit();
-    if ( est->hitCompatibility()(hit,es) ) result.push_back( ctfseeding::SeedingHit(hit,es));
+    if ( est->hitCompatibility()(hit,es) ) result.push_back( SeedingHit(hit,*layer,es));
   }
 //
   
