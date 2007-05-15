@@ -9,23 +9,32 @@ class GlobalTrackingRegionProducer : public TrackingRegionProducer {
 
 public:
 
-  GlobalTrackingRegionProducer(const edm::ParameterSet& cfg) 
-    : theRegionPSet(cfg.getParameter<edm::ParameterSet>("RegionPSet"))
-  { }   
+  GlobalTrackingRegionProducer(const edm::ParameterSet& cfg) {
+
+    edm::ParameterSet regionPSet = cfg.getParameter<edm::ParameterSet>("RegionPSet");
+
+    thePtMin            = regionPSet.getParameter<double>("ptMin");
+    theOriginRadius     = regionPSet.getParameter<double>("originRadius");
+    theOriginHalfLength = regionPSet.getParameter<double>("originHalfLength");
+    theOriginZPos       = regionPSet.getParameter<double>("originZPos");
+    thePrecise          = regionPSet.getParameter<bool>("precise");
+  }
 
   virtual ~GlobalTrackingRegionProducer(){}
 
   virtual std::vector<TrackingRegion* > regions(const edm::Event&, const edm::EventSetup&) const {
     std::vector<TrackingRegion* > result;
     result.push_back( new GlobalTrackingRegion(
-        0.9, 0.2, 0.2, 0.0, true));
-//        theConfig.getUntrackerParameter 
-//        thePtMin, theOriginRadius, theOriginHalfLength, theOriginZPos, thePrecise) );
+        thePtMin, theOriginRadius, theOriginHalfLength, theOriginZPos, thePrecise) );
     return result;
   }
 
 private:
-  edm::ParameterSet theRegionPSet;
+  double thePtMin;
+  double theOriginRadius;
+  double theOriginHalfLength;
+  double theOriginZPos;
+  bool thePrecise;
 };
 
 #endif 
