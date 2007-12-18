@@ -1,0 +1,14 @@
+PSet RegionPSet = {
+  double ptMin = 0.9
+  double originRadius = 0.2
+  double originHalfLength = 15.9 
+  double originZPos = 0.0
+  bool precise = true
+
+  bool useFoundVertices =  true
+  string VertexCollection = "pixelVertices"
+
+  double sigmaZVertex = 3.0
+  bool useFixedError = false
+  double fixedError = 1.0
+}
