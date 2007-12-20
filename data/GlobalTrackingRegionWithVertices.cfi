@@ -9,6 +9,6 @@ PSet RegionPSet = {
   string VertexCollection = "pixelVertices"
 
   double sigmaZVertex = 3.0
-  bool useFixedError = false
-  double fixedError = 1.0
+  bool useFixedError = true
+  double fixedError = 0.2
 }
