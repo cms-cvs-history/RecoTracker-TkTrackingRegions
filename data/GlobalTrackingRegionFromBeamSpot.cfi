@@ -1,7 +1,7 @@
 PSet RegionPSet = {
   double ptMin = 0.9
   double originRadius = 0.2
-  double originHalfLength = 22.7
+  double nSigmaZ = 3.0
   InputTag beamSpot = "offlineBeamSpot"
   bool precise = true
 }
