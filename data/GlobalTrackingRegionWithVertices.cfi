@@ -6,7 +6,7 @@ PSet RegionPSet = {
   bool precise = true
 
   bool useFoundVertices =  true
-  InputTag VertexCollection = "pixelVertices"
+  string VertexCollection = "pixelVertices"
 
   double sigmaZVertex = 3.0
   bool useFixedError = true
