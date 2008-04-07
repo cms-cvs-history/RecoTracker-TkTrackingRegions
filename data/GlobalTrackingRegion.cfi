@@ -1,3 +1,5 @@
+# deprecated.  Changing over to the block
+
 PSet RegionPSet = {
   double ptMin = 0.9
   double originRadius = 0.2
@@ -7,3 +9,17 @@ PSet RegionPSet = {
   double originZPos = 0.0
   bool precise = true
 }
+
+
+block RegionPSetBlock = {
+  PSet RegionPSet = {
+    double ptMin = 0.9
+    double originRadius = 0.2
+    double originHalfLength = 15.9
+    double originXPos = 0.0
+    double originYPos = 0.0
+    double originZPos = 0.0
+    bool precise = true
+  }
+}
+
