@@ -312,8 +312,8 @@ TrackingRegion::Hits RectangularEtaPhiTrackingRegion::hits(
     est = estimator(&fl,es);
   }
   
-  static EtaPhiMeasurementEstimator etaPhiEstimator ((theEtaRange.second-theEtaRange.first)/2.,
-						     (thePhiMargin.left()+thePhiMargin.right())/2.);
+  EtaPhiMeasurementEstimator etaPhiEstimator ((theEtaRange.second-theEtaRange.first)/2.,
+					      (thePhiMargin.left()+thePhiMargin.right())/2.);
   MeasurementEstimator & findDetAndHits = etaPhiEstimator;
   if (est){
     LogDebug("RectangularEtaPhiTrackingRegion")<<"use pixel specific estimator.";
@@ -369,8 +369,7 @@ TrackingRegion::Hits RectangularEtaPhiTrackingRegion::hits(
 
   TrackingRegion::Hits layerHits = layer->hits(ev,es);
   for (TrackingRegion::Hits::const_iterator ih= layerHits.begin(); ih != layerHits.end(); ih++) {
-    const TrackingRecHit * hit = (*ih)->hit();
-    if ( est->hitCompatibility()(hit,es) ) {
+    if ( est->hitCompatibility()(ih->get()) ) {
        result.push_back( *ih );
     }
   }
